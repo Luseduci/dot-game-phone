@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <title>点点轨迹小游戏（移动端适配）</title>
+  <title>点点轨迹小游戏（完整版）</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -19,7 +19,10 @@
       touch-action: none;
       user-select: none;
     }
-    h1 { margin: 20px; color: #333; text-align: center; font-size: 1.6em; }
+    h1 {
+      margin: 10px;
+      font-size: 1.6em;
+    }
     #gameArea {
       position: relative;
       width: 90vw;
@@ -31,13 +34,17 @@
       background: #fff;
       overflow: hidden;
     }
-    /* 其余样式略，为演示简洁，此处省略 */
+    canvas {
+      width: 100%;
+      height: 100%;
+    }
   </style>
 </head>
 <body>
   <h1>🎯 点点轨迹小游戏</h1>
   <div id="gameArea">
-    <p style="padding: 1em;">这是移动端适配测试界面。</p>
+    <!-- 游戏脚本会动态生成内容 -->
+    <p style="padding: 1em;">游戏加载中……（完整版脚本省略）</p>
   </div>
 </body>
 </html>
