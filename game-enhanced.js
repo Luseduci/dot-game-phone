@@ -25,21 +25,20 @@ let timeLeft = 60; // 倒计时秒数
 highScoreDisplay.textContent = highScore;
 loadHistory();
 
+// 横屏提示检测：临时禁用
+// function checkOrientation() {
+//   const isPortrait = window.innerHeight > window.innerWidth;
+//   overlay.style.display = isPortrait ? 'flex' : 'none';
+//   document.body.style.overflow = isPortrait ? 'hidden' : 'auto';
+// }
 
-// 横屏提示检测
-function checkOrientation() {
-  const isPortrait = window.innerHeight > window.innerWidth;
-  overlay.style.display = isPortrait ? 'flex' : 'none';
-  document.body.style.overflow = isPortrait ? 'hidden' : 'auto';
-}
-
-// 页面加载和方向变化时都检查
-window.addEventListener('load', () => {
-  checkOrientation(); // 页面加载时初次检查
-  setTimeout(checkOrientation, 500); // 延迟500ms再检查一次
-});
-window.addEventListener('resize', checkOrientation);  // 监听窗口大小变化
-window.addEventListener('orientationchange', checkOrientation);  // 监听屏幕方向变化
+// 页面加载和方向变化时都检查：临时禁用
+// window.addEventListener('load', () => {
+//   checkOrientation(); // 页面加载时初次检查
+//   setTimeout(checkOrientation, 500); // 延迟500ms再检查一次
+// });
+// window.addEventListener('resize', checkOrientation);  // 监听窗口大小变化
+// window.addEventListener('orientationchange', checkOrientation);  // 监听屏幕方向变化
 
 // 倒计时显示
 const timerDisplay = document.createElement('div');
