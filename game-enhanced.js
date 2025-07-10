@@ -12,6 +12,7 @@ const historyScoresList = document.getElementById('historyScores');
 const hitSound = document.getElementById('hitSound');
 const missSound = document.getElementById('missSound');
 const endSound = document.getElementById('endSound');
+const overlay = document.getElementById('orientationOverlay');
 
 let score = 0;
 let missed = 0;
@@ -23,6 +24,16 @@ let timeLeft = 60; // 倒计时秒数
 
 highScoreDisplay.textContent = highScore;
 loadHistory();
+
+function checkOrientation() {
+  const isPortrait = window.innerHeight > window.innerWidth;
+  overlay.style.display = isPortrait ? 'flex' : 'none';
+}
+
+// 页面加载和方向变化时都检查
+window.addEventListener('load', checkOrientation);
+window.addEventListener('resize', checkOrientation);
+window.addEventListener('orientationchange', checkOrientation);
 
 // 倒计时显示
 const timerDisplay = document.createElement('div');
@@ -231,4 +242,6 @@ difficultySlider.addEventListener('input', () => {
     gameInterval = setInterval(createDot, interval);
   }
 });
+
+
 
