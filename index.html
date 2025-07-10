@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>点点轨迹小游戏</title>
+  <title>点点轨迹小游戏（横竖屏切换）</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -84,10 +84,32 @@
       font-size: 0.95rem;
       color: #444;
     }
+    #orientationOverlay {
+      position: fixed;
+      z-index: 9999;
+      background: black;
+      color: white;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: none;
+      font-size: 20px;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
   </style>
 </head>
 <body>
-  <h1>🎯 点点轨迹小游戏</h1>
+  <h1>🎯 点点轨迹小游戏（横竖屏切换）</h1>
+  <div id="orientationOverlay">请旋转手机以横屏游玩游戏</div>
   <div id="controls">
     <button id="startBtn">开始游戏</button>
     <button id="endBtn">结束游戏</button>
@@ -120,6 +142,7 @@
     const hitSound = document.getElementById('hitSound');
     const missSound = document.getElementById('missSound');
     const endSound = document.getElementById('endSound');
+    const overlay = document.getElementById('orientationOverlay');
 
     let score = 0;
     let missed = 0;
@@ -131,6 +154,21 @@
 
     highScoreDisplay.textContent = highScore;
     loadHistory();
+
+    // 横屏提示检测
+    function checkOrientation() {
+      const isPortrait = window.innerHeight > window.innerWidth; // 判断是否竖屏
+      overlay.style.display = isPortrait ? 'flex' : 'none';
+      document.body.style.overflow = isPortrait ? 'hidden' : 'auto';
+    }
+
+    // 页面加载和方向变化时都检查
+    window.addEventListener('load', () => {
+      checkOrientation(); // 页面加载时初次检查
+      setTimeout(checkOrientation, 500); // 延迟500ms再检查一次
+    });
+    window.addEventListener('resize', checkOrientation);  // 监听窗口大小变化
+    window.addEventListener('orientationchange', checkOrientation);  // 监听屏幕方向变化
 
     // 倒计时显示
     const timerDisplay = document.createElement('div');
