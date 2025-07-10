@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="zh">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>点点轨迹小游戏（优化版）</title>
+  <title>点点轨迹小游戏（横屏检测优化）</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -48,14 +49,6 @@
     .dot.square { border-radius: 6px; }
     .dot.triangle { clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
     .dot:hover { transform: scale(1.2); }
-    .trail {
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      opacity: 0.2;
-      pointer-events: none;
-      z-index: 0;
-    }
     .particle {
       position: absolute;
       width: 6px;
@@ -92,27 +85,32 @@
       font-size: 0.95rem;
       color: #444;
     }
-#orientationOverlay {
-  position: fixed;
-  z-index: 9999;
-  background: black;
-  color: white;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: none;
-  font-size: 20px;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 20px;
-}
+    #orientationOverlay {
+      position: fixed;
+      z-index: 9999;
+      background: black;
+      color: white;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: none;
+      font-size: 20px;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
   </style>
 </head>
 <body>
-  <h1>🎯 点点轨迹小游戏（优化版）</h1>
-<div id="orientationOverlay">请旋转手机以横屏游玩游戏</div>
+  <h1>🎯 点点轨迹小游戏（横屏优化）</h1>
+  <div id="orientationOverlay">请旋转手机以横屏游玩游戏</div>
   <div id="controls">
     <button id="startBtn">开始游戏</button>
     <button id="endBtn">结束游戏</button>
@@ -132,10 +130,6 @@
   <audio id="hitSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_45c9e28a3b.mp3"></audio>
   <audio id="missSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_fefc226902.mp3"></audio>
   <audio id="endSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_e126db2995.mp3"></audio>
-  <script src="game-enhanced.js"></script>
+  <script src="game.js"></script>
 </body>
 </html>
-
-
-
-
