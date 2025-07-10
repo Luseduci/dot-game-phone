@@ -25,14 +25,12 @@ let timeLeft = 60; // 倒计时秒数
 highScoreDisplay.textContent = highScore;
 loadHistory();
 
+
 // 横屏提示检测
 function checkOrientation() {
-  const isPortrait = window.orientation === 0 || window.orientation === 180; // 判断是否竖屏
-  if (isPortrait) {
-    overlay.style.display = 'flex';  // 显示提示
-  } else {
-    overlay.style.display = 'none';  // 隐藏提示
-  }
+  const isPortrait = window.innerHeight > window.innerWidth;
+  overlay.style.display = isPortrait ? 'flex' : 'none';
+  document.body.style.overflow = isPortrait ? 'hidden' : 'auto';
 }
 
 // 页面加载和方向变化时都检查
