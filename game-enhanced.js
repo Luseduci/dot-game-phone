@@ -27,7 +27,7 @@ loadHistory();
 
 // 横屏提示检测
 function checkOrientation() {
-  const isPortrait = window.innerHeight > window.innerWidth; // 判断是否竖屏
+  const isPortrait = window.orientation === 0 || window.orientation === 180; // 判断是否竖屏
   if (isPortrait) {
     overlay.style.display = 'flex';  // 显示提示
   } else {
@@ -36,7 +36,10 @@ function checkOrientation() {
 }
 
 // 页面加载和方向变化时都检查
-window.addEventListener('load', checkOrientation);
+window.addEventListener('load', () => {
+  checkOrientation(); // 页面加载时初次检查
+  setTimeout(checkOrientation, 500); // 延迟500ms再检查一次
+});
 window.addEventListener('resize', checkOrientation);  // 监听窗口大小变化
 window.addEventListener('orientationchange', checkOrientation);  // 监听屏幕方向变化
 
@@ -209,5 +212,13 @@ document.addEventListener('keydown', (e) => {
     e.preventDefault();
     if (!gameRunning && score === 0) return;
     pauseGame();
+  }
+});
+
+difficultySlider.addEventListener('input', () => {
+  if (gameRunning) {
+    clearInterval(gameInterval);
+    const interval = Math.max(200, 1000 - difficultySlider.value * 80);
+    gameInterval = setInterval(createDot, interval);
   }
 });
