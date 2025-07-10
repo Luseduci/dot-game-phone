@@ -1,5 +1,4 @@
 
-```javascript
 // --- 游戏主脚本 ---
 
 const gameArea = document.getElementById('gameArea');
