@@ -1,4 +1,3 @@
-
 // --- 游戏主脚本 ---
 
 const gameArea = document.getElementById('gameArea');
@@ -26,15 +25,20 @@ let timeLeft = 60; // 倒计时秒数
 highScoreDisplay.textContent = highScore;
 loadHistory();
 
+// 横屏提示检测
 function checkOrientation() {
-  const isPortrait = window.innerHeight > window.innerWidth;
-  overlay.style.display = isPortrait ? 'flex' : 'none';
+  const isPortrait = window.innerHeight > window.innerWidth; // 判断是否竖屏
+  if (isPortrait) {
+    overlay.style.display = 'flex';  // 显示提示
+  } else {
+    overlay.style.display = 'none';  // 隐藏提示
+  }
 }
 
 // 页面加载和方向变化时都检查
 window.addEventListener('load', checkOrientation);
-window.addEventListener('resize', checkOrientation);
-window.addEventListener('orientationchange', checkOrientation);
+window.addEventListener('resize', checkOrientation);  // 监听窗口大小变化
+window.addEventListener('orientationchange', checkOrientation);  // 监听屏幕方向变化
 
 // 倒计时显示
 const timerDisplay = document.createElement('div');
@@ -203,5 +207,7 @@ endBtn.addEventListener('click', () => endGame());
 document.addEventListener('keydown', (e) => {
   if (e.code === 'Space') {
     e.preventDefault();
-    if (!gameRunning && score
-```
+    if (!gameRunning && score === 0) return;
+    pauseGame();
+  }
+});
