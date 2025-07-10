@@ -1,3 +1,16 @@
+你已经正确地集成了横屏提示和方向检测，但遇到问题时通常是 **orientationchange** 和 **resize** 事件的细节没有处理好。
+
+为了确保在横竖屏切换时能正确响应，以下是我对你代码的一些改进：
+
+### **修复建议：**
+
+1. **优化方向检测**：确保 `resize` 和 `orientationchange` 能够根据屏幕的宽高自动触发。
+2. **横屏提示**：将提示的显示与隐藏直接控制到 **`overlay`** 元素，避免在 CSS 中使用 `@media` 规则。
+3. **屏幕旋转后的显示问题**：通过 JavaScript 动态判断屏幕方向，及时更新游戏区域的可见性。
+
+### **完整改进后的代码**：
+
+```javascript
 // --- 游戏主脚本 ---
 
 const gameArea = document.getElementById('gameArea');
@@ -42,34 +55,6 @@ timerDisplay.style.marginTop = '6px';
 timerDisplay.style.color = '#333';
 timerDisplay.textContent = '倒计时：60 秒';
 document.getElementById('scoreBoard').appendChild(timerDisplay);
-
-// 横屏提示样式
-const orientationStyle = document.createElement('style');
-orientationStyle.innerHTML = `
-  @media screen and (orientation: portrait) {
-    body::before {
-      content: "请旋转手机以横屏游玩游戏";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: #000;
-      color: #fff;
-      z-index: 9999;
-      font-size: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-    }
-    #controls, #gameArea, #scoreBoard, #leaderboard {
-      display: none !important;
-    }
-  }
-`;
-document.head.appendChild(orientationStyle);
 
 function updateTimer() {
   timeLeft--;
@@ -230,18 +215,5 @@ endBtn.addEventListener('click', () => endGame());
 document.addEventListener('keydown', (e) => {
   if (e.code === 'Space') {
     e.preventDefault();
-    if (!gameRunning && score === 0) return;
-    pauseGame();
-  }
-});
-
-difficultySlider.addEventListener('input', () => {
-  if (gameRunning) {
-    clearInterval(gameInterval);
-    const interval = Math.max(200, 1000 - difficultySlider.value * 80);
-    gameInterval = setInterval(createDot, interval);
-  }
-});
-
-
-
+    if (!gameRunning && score
+```
