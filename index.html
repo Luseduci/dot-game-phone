@@ -92,10 +92,27 @@
       font-size: 0.95rem;
       color: #444;
     }
+#orientationOverlay {
+  position: fixed;
+  z-index: 9999;
+  background: black;
+  color: white;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  font-size: 20px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+}
   </style>
 </head>
 <body>
   <h1>🎯 点点轨迹小游戏（优化版）</h1>
+<div id="orientationOverlay">请旋转手机以横屏游玩游戏</div>
   <div id="controls">
     <button id="startBtn">开始游戏</button>
     <button id="endBtn">结束游戏</button>
@@ -118,5 +135,7 @@
   <script src="game-enhanced.js"></script>
 </body>
 </html>
+
+
 
 
